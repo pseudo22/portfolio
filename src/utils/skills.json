@@ -1,0 +1,67 @@
+[
+    {
+      "category": "languages",
+      "skills": [
+        {
+          "skill": "javascript",
+          "image": "/images/js.png"
+        },
+        {
+            "skill" : "python",
+            "image" : "/images/python.png"
+        },
+        {
+            "skill" : "typescript",
+            "image" : "/images/ts.png"
+        }
+      ]
+    },
+    {
+      "category": "frontend-backend-techs",
+      "skills": [
+        {
+            "skill" : "react.js",
+            "image" : "/images/react.png"
+         },
+        {
+          "skill": "node.js",
+          "image": "/images/nodejs.png"
+        },
+        {
+          "skill": "express",
+          "image": "/images/express.png"
+        },
+        {
+            "skill" : "mongodb",
+            "image" : "/images/mongod.png"
+         },
+        {
+            "skill" : "firebase",
+            "image" : "/images/firebase.png"
+         }
+      ]
+    },
+    {
+        "category" : "frameworks",
+        "skills" : [
+            {
+                "skill" : "nextjs",
+                "image" : "/images/nextjs.png"
+            }
+        ]
+    },
+    {
+      "category": "tools",
+      "skills": [
+        {
+          "skill": "docker",
+          "image": "/images/docker.png"
+        },
+        {
+          "skill": "git",
+          "image": "/images/git.png"
+        }
+      ]
+    }
+  ]
+  

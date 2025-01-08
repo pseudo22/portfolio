@@ -64,6 +64,7 @@ export default function NavBar() {
         <Link href="/contact" className="mx-4">
           contact
         </Link>
+        <a href='/files/SoftwareEngineer.pdf' download>resume</a>
       </div>
     </nav>
   );

@@ -1,17 +1,16 @@
 [
     {
         "projectName" : "merofiru",
-        "sample" : "/images/progress.png",
+        "sample" : "/images/merofiru.png",
         "githubRepolink" : "https://github.com/pseudo22/Merofiru",
-        "about" : "a music-chat application for melophiles, connecting people with similar music tastes and engage in conversations, with react as frontend, express as backend, firebase as database and for authentication, and socket.io used for realtime communication",
+        "live_link" : "https://merofiru.vercel.app/",
+        "about" : "a music-chat application for melophiles, connecting people with similar music tastes and engage in conversations, with react as frontend, express as backend, firebase as database and for authentication, and socket.io used for realtime communication, and for matching algorithm combination of inverted index and jaccard similarity is used",
         "tech" : ["/images/react.png" , "/images/nodejs.png" , "/images/express.png" , "/images/firebase.png"]
-    },
-    {
-       "projectName" :"canvaschat",
-        "sample" : "/gifs/whiteboard.gif",
-        "githubRepolink" : "https://github.com/pseudo22/canvaschat",
-        "about" : "a real-time whiteboard collaboration tool with integrated chat, allowing users to create and join rooms, with django as framework, and django-channels for realtime communication, created a debouncing mechanism which reduces lag during drawing by 18%",
-        "tech" : ["/images/python.png" , "/images/django.png"] 
     }
 ]
+
+
+
+
+
 

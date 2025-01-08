@@ -63,6 +63,9 @@ export default function Projects() {
                   height={40}
                 />
               ))}
+              <a className="border border-white px-2 py-4" href={project.live_link} target="_blank"
+                rel="noopener noreferrer">live link</a>
+
             </div>
 
             <div className="absolute bottom-4 right-4">

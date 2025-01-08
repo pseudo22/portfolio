@@ -8,6 +8,7 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
+  const [loading , setLoading] = useState(false)
 
   useEffect(() => {
     gsap.from(".contact-div ", { opacity: 0, y: 50, duration: 1 });
@@ -15,6 +16,7 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true)
 
     if (!email || !message) {
       setStatus("Please fill in all fields.");
@@ -36,7 +38,7 @@ export default function Contact() {
       "l6CY4tDPa22b49cze"    
     )
     .then((response) => {
-      console.log("SUCCESS", response);
+      setLoading(false)
       setStatus("Message sent successfully!");
       setEmail("");
       setMessage("");
@@ -77,15 +79,15 @@ export default function Contact() {
         </div>
         <button
           type="submit"
+          disabled={loading}
           className="self-center text-white py-3 px-6 rounded-lg mt-4 transition-all duration-300"
         >
-          send message
+          {loading ? "sending" : "send message"}
         </button>
       </form>
       
       {status && <p className="text-center mt-6 text-lg">{status}</p>}
 
-      {/* Links Section */}
       <div className="mt-8 flex justify-center gap-6">
         <a
           href="https://www.linkedin.com/in/rohan-verma-047436267/" 

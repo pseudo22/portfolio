@@ -51,7 +51,7 @@ export default function Experience() {
       return experienceList.map((item, index) => (
         <div
           key={index}
-          className="timeline-item flex items-start space-x-4 border-l-2 border-blue-500 pl-4 relative mb-6"
+          className="timeline-item transition-all duration-300 flex items-start space-x-4 border-l-2 border-blue-500 pl-4 relative mb-6"
         >
           <div className="absolute -left-3 top-1 w-6 h-6 bg-blue-500 rounded-full"></div>
           <div>
@@ -94,7 +94,7 @@ export default function Experience() {
           }`}
           onClick={() => toggleTab("experience")}
         >
-          Experience
+          experience
         </button>
         <button
           className={`px-4 py-2 mx-2 rounded-lg text-xl lg:text-3xl duration-300 ${
@@ -104,7 +104,7 @@ export default function Experience() {
           }`}
           onClick={() => toggleTab("education")}
         >
-          Education
+          education
         </button>
       </div>
 

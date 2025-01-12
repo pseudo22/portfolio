@@ -48,11 +48,11 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bottom-[10%] md:flex-row items-center justify-center md:justify-between px-4 md:px-20 lg:relative">
+    <div className="min-h-screen flex flex-col bottom-[10%] md:flex-row items-center justify-center md:justify-between px-4 md:px-20 lg:relative transition-all duration-300">
       <div className="text-left space-y-4 md:space-y-6">
-        <p className="block font-extralight text-3xl sm:text-5xl md:text-6xl">hey,</p>
-        <p className="text-3xl font-extralight sm:text-4xl md:text-7xl">it's me</p>
-        <p className="mt-2 text-4xl sm:text-6xl md:text-7xl font-semibold">
+        <p className="block font-extralight text-lg sm:text-2xl md:text-xl lg:text-3xl">hey,</p>
+        <p className="font-extralight text-2xl  sm:text-2xl md:text-2xl lg:text-4xl">it's me</p>
+        <p className="mt-2 text-3xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold">
           Rohan Verma
           <span className="italic text-2xl sm:text-3xl font-light ml-2">M/{age}</span>
         </p>
@@ -60,10 +60,10 @@ export default function Landing() {
 
 
       <div className="text-right right-[2%] bottom-[20%] absolute lg:pt-10 md:p-0">
-        <p className="text-3xl sm:text-5xl md:text-8xl font-[400]">Software Developer</p>
+        <p className="text-3xl lg:text-7xl md:text-6xl font-[400]">Software Developer</p>
       </div>
       <br />
-      <p className="md:text-sm lg:hidden absolute bottom-10">scroll down</p>
+      <p onClick={scrollToNextSection} className="md:text-sm lg:hidden absolute bottom-10">scroll down</p>
       <div
         className="lg:down downn hidden absolute bottom-10 left-1/2 transform -translate-x-1/2 cursor-pointer border-2 border-black w-12 h-12 rounded-full p-2 lg:flex justify-center items-center"
         onClick={scrollToNextSection}

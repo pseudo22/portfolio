@@ -1,16 +1,13 @@
 [
     {
-        "projectName" : "merofiru",
-        "sample" : "/images/merofiru.png",
-        "githubRepolink" : "https://github.com/pseudo22/Merofiru",
-        "live_link" : "https://merofiru.vercel.app/",
-        "about" : "a music-chat application for melophiles, connecting people with similar music tastes and engage in conversations, with react as frontend, express as backend, firebase as database and for authentication, and socket.io used for realtime communication, and for matching algorithm combination of inverted index and jaccard similarity is used",
-        "tech" : ["/images/react.png" , "/images/nodejs.png" , "/images/express.png" , "/images/firebase.png"]
+      "projectName": "merofiru",
+      "sample": "/images/merofiru.png",
+      "githubRepolink": "https://github.com/pseudo22/Merofiru",
+      "live_link": "https://merofiru.vercel.app/",
+      "about": "A music-chat application for melophiles, connecting people with similar music tastes and engage in conversations...",
+      "tech": ["/images/react.png", "/images/nodejs.png", "/images/express.png", "/images/firebase.png"],
+      "algoUsed": "Inverted Index & Jaccard Similarity",
+      "systemDesign": "Microservice architecture, with backend using Express and Node.js, Firebase for authentication and real-time data, React for frontend."
     }
-]
-
-
-
-
-
-
+  ]
+  

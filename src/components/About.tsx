@@ -85,8 +85,8 @@ export default function About() {
   }, [showSkills])
 
   return (
-    <div id="next-section" className="min-h-screen min-w-full md:top-[20%] top-[20%] lg:top-[20%] text-2xl lg:text-3xl px-4 relative">
-      <div className="text-center md:text-left md:absolute relative md:left-[10%] top-[40%] lg:top-[20%]">
+    <div id="next-section" className="min-h-screen min-w-full md:top-[20%] top-[20%] lg:top-[20%] text-2xl lg:text-3xl px-4 relative transition-all duration-300">
+      <div className="text-center md:text-left md:absolute relative md:left-[10%] top-[20%] lg:top-[20%]">
         passionate about discovering <i className="ita"><u>innovative</u></i> ways to change perspectives,
         with a <b className="bol">sophisticated</b> and <b className="bol">creative</b> mindset. <br />
         excels at <i className="ita"><u>analyzing</u></i> problems deeply to provide <b className="bol">effective</b> solutions, <br />
@@ -94,9 +94,10 @@ export default function About() {
         in both personal and professional life.
       </div>
 
-      <div className="mt-12 md:absolute md:left-[10%] md:top-[35%] text-center">
+      <div className="mt-12 absolute md:left-[10%] md:top-[50%] text-center">
         <button 
           onClick={fetchSkills} 
+          disabled={loading}
           className={`text-lg bt border-black border-2 md:text-3xl px-6 py-2 rounded-lg ${skills.length > 0 ? 'hidden' : ''}`}
         >
           fetch skills

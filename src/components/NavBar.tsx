@@ -3,13 +3,29 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
-
-
+import { useState, useEffect, useRef } from 'react';
 
 export default function NavBar() {
   const pathname = usePathname();
   const currentPath = pathname;
 
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);  
+  const navRef = useRef<HTMLDivElement | null>(null);  
+
+  
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const handleMouseEnter = (hoverClass: string) => {
     gsap.to(hoverClass, { opacity: 1, scale: 1, duration: 0.3 });
@@ -21,6 +37,7 @@ export default function NavBar() {
 
   return (
     <nav
+      ref={navRef}  
       className="nav-blur flex flex-wrap md:flex-nowrap text-lg md:text-2xl justify-between items-center w-full md:w-[80%] md:left-[10%] fixed top-6 px-4 py-4 m-3 rounded shadow-lg transition-all duration-300 z-[9999]"
     >
       <div className="flex justify-between items-center w-full md:w-auto">
@@ -30,17 +47,13 @@ export default function NavBar() {
         <button
           aria-label="Toggle menu"
           className="block md:hidden"
-          onClick={() => {
-            const navLinks = document.querySelector(".nav-links");
-            navLinks?.classList.toggle("hidden");
-          }}
+          onClick={() => setIsMenuOpen((prev) => !prev)}  
         >
           ☰
         </button>
       </div>
 
-      <div className="nav-links relative pt-4 hidden md:flex flex-col md:flex-row justify-evenly items-center w-full md:w-auto mt-4 md:mt-0">
-
+      <div className={`nav-links relative pt-4 ${isMenuOpen ? 'block' : 'hidden'} md:flex flex-col md:flex-row justify-evenly items-center w-full md:w-auto mt-4 md:mt-0`}>
         <div
           onMouseEnter={() => handleMouseEnter(".hover-projects")}
           onMouseLeave={() => handleMouseLeave(".hover-projects")}

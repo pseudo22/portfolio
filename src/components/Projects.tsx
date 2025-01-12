@@ -30,61 +30,70 @@ export default function Projects() {
   }, [activeProject.image]);
 
   return (
-    <div className="min-h-[80vh] top-[20%] absolute md:px-20">
+    <div className="min-h-[50vh] top-[20%] absolute md:px-20">
       <h2 className="text-3xl sm:text-4xl font-semibold text-center mb-8">projects</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="project-card relative p-6 border-2 border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-all"
-          >
-            <div className="relative">
-              <Image
-                src={project.sample}
-                alt={project.projectName}
-                onClick={() => openAccordion(project.sample, project.projectName)}
-                className="w-full h-56 object-cover rounded-md cursor-pointer"
-                width={500}
-                height={280}
-              />
-            </div>
+      <div className="grid grid-cols-1 md:grid-cols-1 gap-12">
+      {projects.map((project, index) => (
+  <div
+    key={index}
+    className="project-card relative p-6 border-2 border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-all"
+  >
+    <div className="relative">
+      <Image
+        src={project.sample}
+        alt={project.projectName}
+        onClick={() => openAccordion(project.sample, project.projectName)}
+        className="w-full h-56 object-contain rounded-md cursor-pointer"
+        width={500}
+        height={280}
+      />
+    </div>
 
-            <h3 className="text-xl font-bold mt-4">{project.projectName}</h3>
-            <p className="text-lg text-gray-600 mt-2">{project.about}</p>
+    <h3 className="text-xl font-bold mt-4">{project.projectName}</h3>
+    <p className="text-lg text-gray-600 mt-2">{project.about}</p>
 
-            <div className="flex flex-wrap gap-3 mt-4">
-              {project.tech.map((tech, idx) => (
-                <Image
-                  key={idx}
-                  src={tech}
-                  alt="tech"
-                  className="w-10 h-10 object-cover rounded-full"
-                  width={40}
-                  height={40}
-                />
-              ))}
-              <a className="border border-white px-2 py-4" href={project.live_link} target="_blank"
-                rel="noopener noreferrer">live link</a>
+    {/* Display Algorithm Used */}
+    {project.algoUsed && (
+      <p className="mt-2 font-semibold text-lg">Algorithm Used: <span className="font-normal">{project.algoUsed}</span></p>
+    )}
 
-            </div>
+    {/* Display System Design */}
+    {project.systemDesign && (
+      <p className="mt-2 font-semibold text-lg">System Design: <span className="font-normal">{project.systemDesign}</span></p>
+    )}
 
-            <div className="absolute bottom-4 right-4">
-              <a
-                href={project.githubRepolink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/images/github.png"
-                  alt="GitHub"
-                  width={24}
-                  height={24}
-                  className="hover:scale-110 object-contain transition-transform"
-                />
-              </a>
-            </div>
-          </div>
-        ))}
+    <div className="flex flex-wrap gap-3 mt-4">
+      {project.tech.map((tech, idx) => (
+        <Image
+          key={idx}
+          src={tech}
+          alt="tech"
+          className="w-10 h-10 object-cover rounded-full"
+          width={40}
+          height={40}
+        />
+      ))}
+      <a className="border border-white px-2 py-4" href={project.live_link} target="_blank" rel="noopener noreferrer">live link</a>
+    </div>
+
+    <div className="absolute bottom-4 right-4">
+      <a
+        href={project.githubRepolink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Image
+          src="/images/github.png"
+          alt="GitHub"
+          width={24}
+          height={24}
+          className="hover:scale-110 object-contain transition-transform"
+        />
+      </a>
+    </div>
+  </div>
+))}
+
       </div>
 
       {activeProject.image && activeProject.name && (

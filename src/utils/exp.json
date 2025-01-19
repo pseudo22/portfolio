@@ -1,9 +1,13 @@
 [
-    {
-      "title": "software engineer intern",
-      "company": "Prutor.ai",
-      "date": "July-2024 - Present",
-      "description": "developed scalable web applications for the company in django framework"
+  {
+    "title": "software engineer intern",
+    "company": "prutor@iitk",
+    "date": "July-2024 - Present",
+    "description": {
+      "task1": "developed scalable web applications to ease monotonous tasks for the company using Django.",
+      "task2": "did optimizations to improve the speed and efficiency of web applications."
     }
-  ]
+  }
+]
+
   

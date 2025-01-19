@@ -9,7 +9,7 @@ type ExperienceItem = {
   title: string;
   company: string;
   date: string;
-  description: string;
+  description: { [key: string]: string };
 };
 
 type EducationItem = {
@@ -55,10 +55,16 @@ export default function Experience() {
         >
           <div className="absolute -left-3 top-1 w-6 h-6 bg-blue-500 rounded-full"></div>
           <div>
-            <h3 className="text-xl lg:text-3xl font-semibold mb-1">{item.title}</h3>
-            <p className="text-lg:text-2xl text-gray-600 mb-1">{item.company}</p>
-            <p className="text-md lg:text-2xl text-gray-500 mb-2">{item.date}</p>
-            <p className="text-md lg:text-xl">{item.description}</p>
+            <h3 className="text-xl lg:text-3xl font-bold mb-1">{item.title}</h3>
+            <p className="text-lg font-semibold lg:text-2xl text-gray-600 mb-1">{item.company}</p>
+            <p className="text-md lg:text-xl text-gray-500 mb-2">{item.date}</p>
+            <ul className="pl-4">
+              {Object.values(item.description).map((task, taskIndex) => (
+                <li key={taskIndex} className="mb-1">
+                  <p className="text-md lg:text-xl">{task}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       ));
@@ -70,12 +76,12 @@ export default function Experience() {
         >
           <div className="absolute -left-3 top-1 w-6 h-6 bg-blue-500 rounded-full"></div>
           <div>
-            <h3 className="text-xl lg:text-3xl font-semibold mb-1">{item.degree}</h3>
-            <p className="text-lg:text-2xl text-gray-600 mb-1">{item.institution}</p>
-            <p className="text-lg:text-2xl text-gray-500 mb-1">year: {item.year}</p>
+            <h3 className="text-xl lg:text-3xl font-bold mb-1">{item.degree}</h3>
+            <p className="text-lg lg:text-2xl font-semibold text-gray-600 mb-1">{item.institution}</p>
+            <p className="text-lg lg:text-xl text-gray-500 mb-1">year: {item.year}</p>
             {item.cgpa && <p className="text-lg:text-xl">cgpa: {item.cgpa}</p>}
             {item.percentage && (
-              <p className="text-lg:text-xl">percentage: {item.percentage}</p>
+              <p className="text-lg lg:text-xl">percentage: {item.percentage}</p>
             )}
           </div>
         </div>
@@ -87,21 +93,19 @@ export default function Experience() {
     <div className="min-h-[80vh] w-full top-[20%] absolute md:px-20 p-4">
       <div className="flex justify-center mb-8">
         <button
-          className={`px-4 py-2 mx-2 rounded-lg text-xl lg:text-3xl duration-300 ${
-            activeTab === "experience"
+          className={`px-4 py-2 mx-2 rounded-lg text-xl lg:text-3xl duration-300 ${activeTab === "experience"
               ? "underline"
               : ""
-          }`}
+            }`}
           onClick={() => toggleTab("experience")}
         >
           experience
         </button>
         <button
-          className={`px-4 py-2 mx-2 rounded-lg text-xl lg:text-3xl duration-300 ${
-            activeTab === "education"
+          className={`px-4 py-2 mx-2 rounded-lg text-xl lg:text-3xl duration-300 ${activeTab === "education"
               ? "underline"
               : ""
-          }`}
+            }`}
           onClick={() => toggleTab("education")}
         >
           education

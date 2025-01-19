@@ -52,14 +52,12 @@ export default function Projects() {
     <h3 className="text-xl font-bold mt-4">{project.projectName}</h3>
     <p className="text-lg text-gray-600 mt-2">{project.about}</p>
 
-    {/* Display Algorithm Used */}
     {project.algoUsed && (
-      <p className="mt-2 font-semibold text-lg">Algorithm Used: <span className="font-normal">{project.algoUsed}</span></p>
+      <p className="mt-2 font-semibold text-lg">algorithm used: <span className="font-normal">{project.algoUsed}</span></p>
     )}
 
-    {/* Display System Design */}
     {project.systemDesign && (
-      <p className="mt-2 font-semibold text-lg">System Design: <span className="font-normal">{project.systemDesign}</span></p>
+      <p className="mt-2 font-semibold text-lg">system design: <span className="font-normal">{project.systemDesign}</span></p>
     )}
 
     <div className="flex flex-wrap gap-3 mt-4">

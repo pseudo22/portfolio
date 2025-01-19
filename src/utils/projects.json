@@ -4,10 +4,10 @@
       "sample": "/images/merofiru.png",
       "githubRepolink": "https://github.com/pseudo22/Merofiru",
       "live_link": "https://merofiru.vercel.app/",
-      "about": "A music-chat application for melophiles, connecting people with similar music tastes and engage in conversations...",
+      "about": "a music-chat application for melophiles, connecting people with similar music tastes and engage in conversations...",
       "tech": ["/images/react.png", "/images/nodejs.png", "/images/express.png", "/images/firebase.png"],
-      "algoUsed": "Inverted Index & Jaccard Similarity",
-      "systemDesign": "Microservice architecture, with backend using Express and Node.js, Firebase for authentication and real-time data, React for frontend."
+      "algoUsed": "inverted index & jaccard similarity",
+      "systemDesign": "microservice architecture, with backend using Express and Node.js, Firebase for authentication and real-time data, React for frontend."
     }
   ]
   

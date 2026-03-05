@@ -33,7 +33,7 @@ export default function FloatingContact() {
     },
     {
       name: "LinkedIn",
-      url: "https://www.linkedin.com/in/rohan-verma-047436267/", 
+      url: "https://www.linkedin.com/in/rohan-verma-047436267/",
       icon: <FiLinkedin size={22} className="sm:w-6 sm:h-6" />,
     },
     {
@@ -43,7 +43,7 @@ export default function FloatingContact() {
     },
     {
       name: "Email",
-      url: "mailto:rohan.rv79@gmail.com", 
+      url: "mailto:rohan.rv79@gmail.com",
       icon: <FiMail size={22} className="sm:w-6 sm:h-6" />,
     },
     {
@@ -54,44 +54,63 @@ export default function FloatingContact() {
     },
     {
       name: "Resume (Drive)",
-      url: "https://drive.google.com/file/d/1CO57rKkISibzoupkJY2LIE5-E5t7tshe/view?usp=sharing", 
+      url: "https://drive.google.com/file/d/1CO57rKkISibzoupkJY2LIE5-E5t7tshe/view?usp=sharing",
       icon: <FiFileText size={22} className="sm:w-6 sm:h-6" />,
     },
   ];
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
-    
+
     const handleScroll = () => {
       if (!dockRef.current) return;
-      
+
       const currentScrollY = window.scrollY;
-      
-      // Subtle shrink effect on scroll down, but keep it on screen
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
-         gsap.to(dockRef.current, { 
-           opacity: 0.7, 
-           scale: 0.95, 
-           duration: 0.4, 
-           ease: "power2.out" 
-         });
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
+
+      // Calculate if we're near the bottom (e.g., within 100px of the footer/contact section)
+      const isAtBottom = windowHeight + currentScrollY >= fullHeight - 150;
+
+      if (isAtBottom) {
+        // Hide completely at bottom
+        gsap.to(dockRef.current, {
+          opacity: 0,
+          y: 50,
+          scale: 0.8,
+          pointerEvents: "none",
+          duration: 0.4,
+          ease: "power2.inOut"
+        });
+      } else if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        // Subtle shrink effect on scroll down
+        gsap.to(dockRef.current, {
+          opacity: 0.7,
+          scale: 0.95,
+          y: 0,
+          pointerEvents: "auto",
+          duration: 0.4,
+          ease: "power2.out"
+        });
       } else {
-         // Scrolling up or at the top restores it to full size
-         gsap.to(dockRef.current, { 
-           opacity: 1, 
-           scale: 1, 
-           duration: 0.4, 
-           ease: "power2.out" 
-         });
+        // Scrolling up or at the top restores it
+        gsap.to(dockRef.current, {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          pointerEvents: "auto",
+          duration: 0.4,
+          ease: "power2.out"
+        });
       }
       lastScrollY = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    
+
     // Initial entry animation
-    gsap.fromTo(dockRef.current, 
-      { y: 100, opacity: 0 }, 
+    gsap.fromTo(dockRef.current,
+      { y: 100, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: "back.out(1.5)", delay: 0.5 }
     );
 
@@ -114,10 +133,10 @@ export default function FloatingContact() {
   }, []);
 
   return (
-    <div 
+    <div
       className="fixed bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 z-50 w-max"
     >
-      <div 
+      <div
         ref={dockRef}
         className="flex flex-row items-center gap-4 sm:gap-8 px-6 py-4 bg-white/70 dark:bg-[#111111]/80 backdrop-blur-xl border border-gray-200 dark:border-gray-800 shadow-xl rounded-full"
       >
@@ -128,14 +147,14 @@ export default function FloatingContact() {
                 key={idx}
                 type="button"
                 onClick={async () => {
-                   const cal = await getCalApi();
-                   cal("modal", {
-                     calLink: contact.url,
-                     config: { 
-                       theme: theme === "dark" ? "dark" : "light",
-                       layout: "month_view"
-                     }
-                   });
+                  const cal = await getCalApi();
+                  cal("modal", {
+                    calLink: contact.url,
+                    config: {
+                      theme: theme === "dark" ? "dark" : "light",
+                      layout: "month_view"
+                    }
+                  });
                 }}
                 className="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all hover:scale-125 hover:-translate-y-2 relative group flex items-center justify-center duration-300 focus:outline-none cursor-pointer"
                 aria-label={contact.name}
@@ -158,7 +177,7 @@ export default function FloatingContact() {
               aria-label={contact.name}
             >
               {contact.icon}
-              
+
               {/* Tooltip */}
               <span className="absolute -top-12 left-1/2 -translate-x-1/2 bg-gray-900 text-white font-medium text-xs px-3 py-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none drop-shadow-md">
                 {contact.name}
@@ -170,7 +189,7 @@ export default function FloatingContact() {
         })}
 
         <div className="w-[1px] h-6 bg-gray-300 dark:bg-gray-600 mx-1"></div>
-        
+
         {mounted && (
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

@@ -76,7 +76,7 @@ export default function Experience() {
         {experienceData.map((exp: ExperienceItem, index: number) => (
           <div
             key={index}
-            className="border border-gray-300 dark:border-gray-800 rounded-md p-2 md:p-3 transition-all duration-300 hover:border-gray-400 dark:hover:border-gray-600 hover:-translate-y-1 hover:shadow-md"
+            className="relative bg-white/50 dark:bg-white/[0.02] backdrop-blur-sm border border-gray-100 dark:border-white/5 rounded-2xl p-4 md:p-6 transition-all duration-300 hover:border-gray-400 dark:hover:border-white/10 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-200/50 dark:hover:shadow-none"
           >
             <div
               className="flex flex-row justify-between mb-2 md:mb-4 cursor-pointer gap-8"

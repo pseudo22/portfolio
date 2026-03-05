@@ -9,7 +9,7 @@ export default function About() {
   return (
     <SectionLayout title="" id="introduction">
       <div className="max-w-4xl transition-all duration-500 group">
-        <div className="relative flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-14 bg-white/50 dark:bg-white/[0.02] backdrop-blur-sm p-6 md:p-10 rounded-3xl border border-gray-100 dark:border-white/5 shadow-2xl shadow-gray-200/50 dark:shadow-none transition-all duration-500">
+        <div className="relative flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-14 bg-white/50 dark:bg-white/[0.02] backdrop-blur-sm p-6 md:p-10 rounded-3xl border border-gray-100 dark:border-white/5 shadow-2xl shadow-gray-200/50 dark:shadow-none transition-all duration-500 hover:-translate-y-1 hover:shadow-3xl">
           
           {/* Profile Image */}
           <div className="relative flex-shrink-0">

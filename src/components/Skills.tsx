@@ -21,7 +21,7 @@ export default function Skills() {
               {category.skills.map((skill, sIdx) => (
                 <div
                   key={sIdx}
-                  className="flex items-center gap-2.5 px-3 py-2 bg-gray-50 dark:bg-[#151515] border border-gray-200 dark:border-[#2a2a2a] rounded-lg hover:bg-white dark:hover:bg-[#1a1a1a] hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 hover:shadow-md transition-all duration-300 group cursor-default"
+                  className="flex items-center gap-2.5 px-3 py-2 bg-white/50 dark:bg-white/[0.02] backdrop-blur-sm border border-gray-100 dark:border-white/5 rounded-xl hover:bg-white dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/10 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-200/50 dark:hover:shadow-none transition-all duration-300 group cursor-default"
                 >
                   <div className="relative w-5 h-5 opacity-100 grayscale-0 md:opacity-60 md:grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300 dark:bg-white/90 dark:p-0.5 dark:rounded-sm">
                     <Image

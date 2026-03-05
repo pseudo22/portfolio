@@ -13,7 +13,7 @@ export default function Projects() {
         {projectsData.map((project, index) => (
           <div
             key={index}
-            className="border border-gray-400 dark:border-gray-800 rounded-md p-4 md:p-6 flex flex-col md:flex-row gap-6 transition-all duration-300 hover:border-gray-600 dark:hover:border-gray-500 hover:-translate-y-1 hover:shadow-md"
+            className="relative bg-white/50 dark:bg-white/[0.02] backdrop-blur-sm border border-gray-100 dark:border-white/5 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-8 transition-all duration-300 hover:border-gray-400 dark:hover:border-white/10 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-200/50 dark:hover:shadow-none"
           >
             {/* Project Image */}
             <div className="w-full md:w-1/3 aspect-video relative flex-shrink-0 rounded-md overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm transition-colors duration-300">

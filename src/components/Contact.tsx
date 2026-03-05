@@ -1,122 +1,127 @@
-"use client"
-
-import { useEffect, useState } from "react";
-import gsap from "gsap";
-import emailjs from "@emailjs/browser";
+"use client";
+import React, { useEffect, useRef } from "react";
+import SectionLayout from "./layout/SectionLayout";
+import { FiGithub, FiLinkedin, FiMail, FiCalendar } from "react-icons/fi";
+import { SiLeetcode, SiX } from "react-icons/si";
+import { gsap } from "gsap";
+import { getCalApi } from "@calcom/embed-react";
+import { useTheme } from "next-themes";
 
 export default function Contact() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState("");
-  const [loading, setLoading] = useState(false)
+  const { theme } = useTheme();
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.from(".contact-div ", { opacity: 0, y: 50, duration: 1 });
+    if (sectionRef.current) {
+      gsap.fromTo(
+        sectionRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.2 }
+      );
+    }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true)
-
-    if (!email || !message) {
-      setStatus("Please fill in all fields.");
-      return;
-    }
-
-    const templateParams = {
-      to_email: "rohan.rv79@gmail.com",
-      from_email: email,
-      message: message,
-      to_name: "there",
-      from_name: email
-    };
-
-    emailjs.send(
-      "service_d2vs07r",
-      "template_zshoa2n",
-      templateParams,
-      "l6CY4tDPa22b49cze"
-    )
-      .then((response) => {
-        setLoading(false)
-        setStatus("Message sent successfully!");
-        setEmail("");
-        setMessage("");
-      })
-      .catch((error) => {
-        console.error("FAILED", error);
-        setStatus("Failed to send message. Please try again later.");
-      });
+  const openCal = async () => {
+    const cal = await getCalApi();
+    cal("modal", {
+      calLink: "rohan-verma-kkq96x/30min",
+      config: {
+        theme: theme === "dark" ? "dark" : "light",
+        layout: "month_view"
+      }
+    });
   };
 
+  const socials = [
+    {
+      name: "linkedin",
+      href: "https://www.linkedin.com/in/rohan-verma-047436267/",
+      icon: <FiLinkedin size={20} />,
+      label: "",
+    },
+    {
+      name: "github",
+      href: "https://github.com/pseudo22",
+      icon: <FiGithub size={20} />,
+      label: "",
+    },
+    {
+      name: "leetcode",
+      href: "https://leetcode.com/u/pseudo462/",
+      icon: <SiLeetcode size={20} />,
+      label: "",
+    },
+    {
+      name: "x (twitter)",
+      href: "https://x.com/pseudo2211",
+      icon: <SiX size={18} />,
+      label: "",
+    },
+  ];
+
   return (
-    <div className="contact-div w-full md:w-[70%] lg:w-[70%] left-[10%] sm:left-[25%] md:left-[20%] lg:left-[15%] min-h-[80vh] top-[20%] absolute mx-auto py-16 px-6 rounded-lg shadow-lg">
-      <h2 className="text-4xl font-semibold text-center mb-8">contact me</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        <div className="flex flex-col">
-          <label htmlFor="email" className="text-lg mb-2">your email</label>
-          <input
-            type="email"
-            id="email"
-            className="p-3 border rounded-lg focus:outline-none"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="message" className="text-lg mb-2">your message</label>
-          <textarea
-            id="message"
-            className="p-3 border rounded-lg focus:outline-none"
-            placeholder="Enter your message"
-            rows={6}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="self-center text-white py-3 px-6 border border-white rounded-lg mt-4 transition-all duration-300"
-        >
-          {loading ? "sending" : "send message"}
-        </button>
-      </form>
+    <SectionLayout title="get in touch" id="contact">
+      <div 
+        ref={sectionRef}
+        className="relative group max-w-4xl"
+      >
+        <div className="relative flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-14 bg-white/50 dark:bg-white/[0.02] backdrop-blur-sm p-8 md:p-12 rounded-3xl border border-gray-100 dark:border-white/5 shadow-2xl shadow-gray-200/50 dark:shadow-none transition-all duration-500 hover:-translate-y-1 hover:shadow-3xl">
+          
+          <div className="flex-1 text-center md:text-left">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 tracking-tight text-gray-900 dark:text-gray-50">
+              let's <span className="bg-gradient-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">connect</span>
+            </h2>
+            
+            <p className="text-lg md:text-xl leading-relaxed font-medium mb-10 text-gray-600 dark:text-gray-300 max-w-2xl">
+              i'm always open to discussing{" "}
+              <span className="text-gray-900 dark:text-white italic underline decoration-gray-300 dark:decoration-gray-700 underline-offset-4">new projects</span>,{" "}
+              <span className="text-gray-900 dark:text-white font-bold">creative ideas</span>, or opportunities to be part of your vision. 
+              {" "}whether you want to build something{" "}
+              <span className="text-gray-900 dark:text-white font-bold">together</span> or just say <span className="text-gray-900 dark:text-white font-bold">hi</span>, feel free to reach out.
+            </p>
 
-      {status && <p className="text-center mt-6 text-lg">{status}</p>}
+            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mb-10">
+              <button
+                onClick={openCal}
+                className="group/btn relative inline-flex items-center gap-3 px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-black font-bold rounded-2xl hover:scale-105 transition-all duration-300 shadow-xl shadow-gray-400/20 dark:shadow-none cursor-pointer"
+              >
+                <FiCalendar className="text-xl" />
+                <span className="capitalize">schedule a meet</span>
+              </button>
 
-      <div className="mt-8 relative flex justify-center gap-6">
-        <a
-          href="https://www.linkedin.com/in/rohan-verma-047436267/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="contact-link text-2xl py-2 px-4 sm:py-3 sm:px-6 border border-white text-gray-800 hover:text-gray-600 transition-all duration-300"
-        >
-          linkedIn
-        </a>
-        <a
-          href="https://github.com/pseudo22"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="contact-link text-2xl py-2 px-4 sm:py-3 sm:px-6 border border-white text-gray-800 hover:text-gray-600 transition-all duration-300"
-        >
-          gitHub
-        </a>
-        <a
-          href="https://x.com/pseudo2211"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="contact-link text-2xl py-2 px-4 sm:py-3 sm:px-6 border border-white text-gray-800 hover:text-gray-600 transition-all duration-300"
-        >
-          X
-        </a>
+              <a
+                href="mailto:rohan.rv79@gmail.com"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-white dark:bg-white/5 text-gray-900 dark:text-white font-bold rounded-2xl border border-gray-100 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 transition-all duration-300"
+              >
+                <FiMail className="text-xl" />
+                <span className="capitalize">send email</span>
+              </a>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+              {socials.map((social, idx) => (
+                <a
+                  key={idx}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/item flex flex-col items-center md:items-start p-4 bg-gray-50/50 dark:bg-white/[0.03] hover:bg-white dark:hover:bg-white/10 border border-transparent hover:border-gray-200 dark:hover:border-white/10 rounded-2xl transition-all duration-300"
+                >
+                  <div className="p-3 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-300 group-hover/item:text-gray-900 dark:group-hover/item:text-white rounded-xl shadow-sm mb-3 transition-colors">
+                    {social.icon}
+                  </div>
+                  <span className="text-sm font-bold text-gray-900 dark:text-white mb-1">
+                    {social.name}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-bold">
+                    {social.label}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-
-
-    </div>
-
+    </SectionLayout>
   );
 }

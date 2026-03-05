@@ -10,7 +10,7 @@ export default function Education() {
         {educationData.map((edu, index) => (
           <div
             key={index}
-            className="border border-gray-400 dark:border-gray-800 rounded-md p-4 md:p-5 flex flex-col md:flex-row md:justify-between md:items-start transition-all duration-300 hover:border-gray-500 dark:hover:border-gray-700 hover:bg-gray-50/50 dark:hover:bg-white/[0.02] hover:-translate-y-1 hover:shadow-md"
+            className="relative bg-white/50 dark:bg-white/[0.02] backdrop-blur-sm border border-gray-100 dark:border-white/5 rounded-2xl p-6 md:p-9 flex flex-col md:flex-row md:justify-between md:items-start transition-all duration-300 hover:border-gray-400 dark:hover:border-white/10 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-200/50 dark:hover:shadow-none"
           >
             <div className="flex flex-col flex-1 pl-2 border-l-2 border-gray-300 dark:border-gray-700 transition-colors duration-300">
               <div className="flex items-center gap-2 text-gray-900 dark:text-gray-100 mb-1.5 md:mb-3 transition-colors duration-300">

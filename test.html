@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Three.js Newton's Cradle</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #111; color: white; font-family: sans-serif; }
+        canvas { display: block; }
+        #instructions {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <div id="instructions">
+        <h2>Newton's Cradle</h2>
+        <p>Drag the <b>Left</b> or <b>Right</b> ball and release to start. The motion is now stable!</p>
+        <p>Physics: <span style="font-family: monospace;">alpha = -(g / L) * sin(theta)</span></p>
+    </div>
+
+    <script>
+        // --- 1. SCENE SETUP ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x111111);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 5, 12);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        document.body.appendChild(renderer.domElement);
+
+        // --- 2. LIGHTING ---
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const spotLight = new THREE.SpotLight(0xffffff, 1);
+        spotLight.position.set(10, 20, 10);
+        spotLight.castShadow = true;
+        scene.add(spotLight);
+
+        // --- 3. CORRECTED PHYSICS CONSTANTS ---
+        // T = 2 * PI * sqrt(L/g). Physics is calculated using alpha = -(g/L) * sin(theta)
+        const g = 9.81;       // CORRECTED: Standard gravity (m/s^2)
+        const L = 4;          // String Length
+        const ballRadius = 0.5;
+        const damping = 0.998; // CORRECTED: Slight air resistance for stability (near 1.0)
+        
+        let lastTime = performance.now(); // For calculating Delta Time (dt)
+
+        // --- 4. CREATE OBJECTS (Unchanged) ---
+        const ballMaterial = new THREE.MeshStandardMaterial({ 
+            color: 0xb0b0b0, 
+            metalness: 0.9, 
+            roughness: 0.1 
+        });
+        const stringMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+        const topBarMaterial = new THREE.MeshStandardMaterial({ color: 0x444444 });
+
+        const topBar = new THREE.Mesh(new THREE.BoxGeometry(6, 0.2, 0.5), topBarMaterial);
+        topBar.position.y = L + 1;
+        scene.add(topBar);
+
+        const pendulums = [];
+        const ballCount = 5;
+        const startX = - (ballCount - 1) * ballRadius;
+
+        for (let i = 0; i < ballCount; i++) {
+            const xOffset = startX + (i * (ballRadius * 2));
+            const pivot = new THREE.Vector3(xOffset, L + 1, 0);
+            const sphereGeo = new THREE.SphereGeometry(ballRadius, 32, 32);
+            const ball = new THREE.Mesh(sphereGeo, ballMaterial);
+            ball.castShadow = true;
+            scene.add(ball);
+            const lineGeo = new THREE.BufferGeometry().setFromPoints([pivot, new THREE.Vector3(xOffset, 1, 0)]);
+            const string = new THREE.Line(lineGeo, stringMaterial);
+            scene.add(string);
+
+            pendulums.push({
+                mesh: ball,
+                line: string,
+                pivot: pivot,
+                angle: 0,
+                velocity: 0,
+                mass: 1,
+                isDragging: false
+            });
+        }
+
+        camera.lookAt(0, 2, 0);
+
+        // --- 5. MOUSE INTERACTION (Unchanged) ---
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let draggedPendulum = null;
+        const planeNormal = new THREE.Vector3(0, 0, 1);
+        const planeConstant = 0;
+        const dragPlane = new THREE.Plane(planeNormal, planeConstant);
+
+        function onMouseDown(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(pendulums.map(p => p.mesh));
+
+            if (intersects.length > 0) {
+                const hitMesh = intersects[0].object;
+                draggedPendulum = pendulums.find(p => p.mesh === hitMesh);
+                draggedPendulum.isDragging = true;
+                draggedPendulum.velocity = 0;
+            }
+        }
+
+        function onMouseMove(event) {
+            if (!draggedPendulum) return;
+
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersection = new THREE.Vector3();
+            raycaster.ray.intersectPlane(dragPlane, intersection);
+
+            if (intersection) {
+                const dx = intersection.x - draggedPendulum.pivot.x;
+                const dy = intersection.y - draggedPendulum.pivot.y;
+                
+                let angle = Math.atan2(dx, -dy);
+                
+                angle = Math.max(-Math.PI/1.5, Math.min(Math.PI/1.5, angle));
+                
+                draggedPendulum.angle = angle;
+            }
+        }
+
+        function onMouseUp() {
+            if (draggedPendulum) {
+                draggedPendulum.isDragging = false;
+                draggedPendulum = null;
+            }
+        }
+
+        window.addEventListener('mousedown', onMouseDown);
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+
+
+        // --- 6. CORRECTED PHYSICS & ANIMATION LOOP ---
+        function animate(currentTime) {
+            requestAnimationFrame(animate);
+
+            // Calculate Delta Time (dt) in seconds
+            const deltaTime = (currentTime - lastTime) / 1000; 
+            lastTime = currentTime;
+
+            // A. Physics Step
+            pendulums.forEach(p => {
+                if (!p.isDragging) {
+                    // 1. Calculate Acceleration: alpha = - (g / L) * sin(theta)
+                    const acceleration = - (g / L) * Math.sin(p.angle);
+                    
+                    // 2. Update Velocity: p.velocity += acceleration * dt
+                    p.velocity += acceleration * deltaTime;
+                    p.velocity *= damping;
+
+                    // 3. Update Angle: p.angle += p.velocity * dt
+                    p.angle += p.velocity * deltaTime;
+                }
+
+                // 4. Update 3D Position
+                p.mesh.position.x = p.pivot.x + L * Math.sin(p.angle);
+                p.mesh.position.y = p.pivot.y - L * Math.cos(p.angle);
+                p.mesh.position.z = 0;
+
+                // 5. Update String Visuals
+                const positions = p.line.geometry.attributes.position.array;
+                positions[3] = p.mesh.position.x;
+                positions[4] = p.mesh.position.y;
+                positions[5] = p.mesh.position.z;
+                p.line.geometry.attributes.position.needsUpdate = true;
+            });
+
+            // B. Collision Detection (Newton's Cradle Logic)
+            for (let i = 0; i < pendulums.length - 1; i++) {
+                let p1 = pendulums[i];
+                let p2 = pendulums[i+1];
+
+                let dist = p1.mesh.position.distanceTo(p2.mesh.position);
+                
+                // If distance < sum of radii, they collide
+                if (dist < ballRadius * 2) {
+                    // Simple Elastic Collision: Swap Velocities
+                    let vTemp = p1.velocity;
+                    p1.velocity = p2.velocity;
+                    p2.velocity = vTemp;
+
+                    // CORRECTION: Correct positional overlap (separation)
+                    // Find the vector pointing from p1 to p2
+                    const separationVector = p2.mesh.position.clone().sub(p1.mesh.position);
+                    const currentDistance = separationVector.length();
+                    const requiredDistance = ballRadius * 2;
+                    const correctionDistance = requiredDistance - currentDistance;
+                    
+                    // Normalize the vector and scale it by half the correction distance
+                    separationVector.normalize().multiplyScalar(correctionDistance / 2);
+
+                    // Push balls apart by half the correction distance
+                    p1.mesh.position.sub(separationVector);
+                    p2.mesh.position.add(separationVector);
+                    
+                    // Update angles based on the new corrected position
+                    p1.angle = Math.atan2(p1.mesh.position.x - p1.pivot.x, p1.pivot.y - p1.mesh.position.y);
+                    p2.angle = Math.atan2(p2.mesh.position.x - p2.pivot.x, p2.pivot.y - p2.mesh.position.y);
+                }
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        // Pass the current time to the animate function on start
+        animate(performance.now()); 
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

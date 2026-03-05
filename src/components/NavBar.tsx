@@ -74,10 +74,7 @@ export default function NavBar() {
         <Link href="/experience" className="mx-4">
           experience
         </Link>
-        <Link href="/contact" className="mx-4">
-          contact
-        </Link>
-        <a href='/files/RohanResumeLatest.pdf' download>resume</a>
+        <a href='/files/RohanResumeLatest.pdf' download className="mx-4">resume</a>
       </div>
     </nav>
   );

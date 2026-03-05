@@ -1,0 +1,7 @@
+{
+    "projectName" :"trend99",
+     "sample" : "/images/progress.png",
+     "github-repo link" : "N/A",
+     "about" : "a real-time trend predictor and generator using deep learning, transformers used for prediction and generation, real time data fetched from google trends api, generate a trend score based on user input text, telling the probability will it trend or not and generate a suggestive test which will have high chance of trending",
+     "tech" : ["/images/python.png" , "/images/next.png" , "/images/firebase.png"] 
+ }

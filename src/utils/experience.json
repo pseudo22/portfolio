@@ -1,0 +1,21 @@
+[
+  {
+    "title": "software developer",
+    "company": "prutor@IITK",
+    "date": "july 2025 – Present",
+    "description": {
+      "task1": "built a 3D interactive quiz-based game using React, Redux and React Three Fiber, enhancing user engagement by 25 %.",
+      "task2": "implemented backend (Node.js, Express, MongoDB) for scoring, auth, achievements & streaks, boosting engagement by 40 %.",
+      "task3": "worked with a team to develop a quiz-based game app in Flutter using Providers for state management, improving user engagement and retention by 30 %."
+    }
+  },
+  {
+    "title": "software developer intern",
+    "company": "prutor@IITK",
+    "date": "july 2024 – july 2025",
+    "description": {
+      "task1": "developed chat & notification system with Django for better internal communication.",
+      "task2": "built web apps with Django to streamline operations and improve efficiency."
+    }
+  }
+]

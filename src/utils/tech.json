@@ -1,0 +1,18 @@
+[
+  { "name": "React", "icon": "/images/react.png" },
+  { "name": "Next.js", "icon": "/images/nextjs.png" },
+  { "name": "Node.js", "icon": "/images/nodejs.png" },
+  { "name": "TypeScript", "icon": "/images/ts.png" },
+  { "name": "JavaScript", "icon": "/images/js.png" },
+  { "name": "Python", "icon": "/images/python.png" },
+  { "name": "Git", "icon": "/images/git.png" },
+  { "name": "Docker", "icon": "/images/docker.png" },
+  { "name": "Firebase", "icon": "/images/firebase.png" },
+  { "name": "Redux", "icon": "/images/rtk.png" },
+  { "name": "Tailwind CSS", "icon": "/images/tailwindcss.png" },
+  { "name": "Express", "icon": "/images/express.png" },
+  { "name": "MongoDB", "icon": "/images/mongod.png" },
+  { "name": "Flutter", "icon": "/images/flutter.png" },
+  { "name": "Django", "icon": "/images/django.png" },
+  { "name": "React Three Fiber", "icon": "/images/react-three-fiber.png" }
+]

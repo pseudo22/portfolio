@@ -19,8 +19,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="relative min-h-screen overflow-x-hidden pb-32 lg:pb-36 bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <AnimateLines />
-          <ResponsiveContainer>{children}</ResponsiveContainer>
+          <ResponsiveContainer><AnimateLines />{children}</ResponsiveContainer>
           <FloatingContact />
         </ThemeProvider>
       </body>

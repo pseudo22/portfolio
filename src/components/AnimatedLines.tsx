@@ -72,8 +72,12 @@ export default function AnimatedLines() {
       {/* Left line */}
       <div
         ref={leftStringRef}
-        className="hidden md:block fixed left-0 top-0 h-screen w-[100px] lg:w-[150px] z-50 pointer-events-auto
-                   md:ml-[150px] lg:ml-[200px] xl:ml-[250px] 2xl:ml-[350px]"
+        className="
+hidden md:block fixed left-0 top-0
+h-screen w-[var(--line-width)]
+z-50
+ml-[calc(var(--side-space)-var(--line-width)/2)]
+"
       >
         <svg
           width="100%"
@@ -94,8 +98,12 @@ export default function AnimatedLines() {
       {/* Right line */}
       <div
         ref={rightStringRef}
-        className="hidden md:block fixed right-0 top-0 h-screen w-[100px] lg:w-[150px] z-50 pointer-events-auto
-                   md:mr-[150px] lg:mr-[200px] xl:mr-[250px] 2xl:mr-[350px]"
+        className="
+hidden md:block fixed right-0 top-0
+h-screen w-[var(--line-width)]
+z-50
+mr-[calc(var(--side-space)-var(--line-width)/2)]
+"
       >
         <svg
           width="100%"

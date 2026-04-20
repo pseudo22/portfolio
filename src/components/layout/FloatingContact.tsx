@@ -54,7 +54,7 @@ export default function FloatingContact() {
     },
     {
       name: "Resume (Drive)",
-      url: "https://drive.google.com/file/d/1CO57rKkISibzoupkJY2LIE5-E5t7tshe/view?usp=sharing",
+      url: "https://drive.google.com/file/d/1xoZg4InwUgBRhqMEjG_T1hTJWh4__DZj/view?usp=sharing",
       icon: <FiFileText size={22} className="sm:w-6 sm:h-6" />,
     },
   ];
